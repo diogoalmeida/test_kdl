@@ -1,0 +1,22 @@
+<launch>
+  <arg name="cpp" default="false"/>
+  <arg name="py" default="false"/>
+
+  <param name="robot_description" command="$(find xacro)/xacro.py --inorder $(find baxter_description)/urdf/baxter.urdf.xacro gazebo:=false"/>
+  <node if="$(arg cpp)" pkg="test_kdl" type="test_kdl_cpp" name="test_kdl_cpp" output="screen">
+    <rosparam>
+      base_link: base
+      eef: left_gripper
+      max_trials: 1000000
+    </rosparam>
+  </node>
+
+  <node if="$(arg py)" pkg="test_kdl" type="test_kdl.py" name="test_kdl_py" output="screen">
+    <rosparam>
+      base_link: base
+      eef: left_gripper
+      max_trials: 1000000
+    </rosparam>
+  </node>
+
+</launch>
